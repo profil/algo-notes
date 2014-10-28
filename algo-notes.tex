@@ -166,8 +166,6 @@ Where $c$ is some constant.
 
 The min cut is equal to the max flow in a flow network.
 
-$G(V, E)$
-
 \textbf{Ford--Fulkerson}:
 $\mathcal{O}(\vert{E}\vert f)$, $f$ is the maximum flow. \\
 \textbf{Edmonds--Karp}: (a variation of Ford--Fulkerson):
@@ -186,13 +184,15 @@ $Y$ (with respect to polynomial time).
 \end{definition}
 
 \subsection{NP-Complete problems}
-To prove that a problem $Q$ is NP-complete you have to:
+To prove that a problem $Y$ is NP-complete you have to:
 \begin{enumerate}
-	\item Show that you can verify a solution to $Q$ in polynomial time.
-		(Shows that problem is in NP)
-	\item Reduce some NP-complete problem $R$ to $Q$.
-	\item Show that a solution to $R$ is a solution to $Q$ and vice versa.
+	\item Show that you can verify a solution to $Y$ in polynomial time.
+		($Y \in$ NP)
+	\item Give a reduction $A$ from some NP-complete problem $X$ to $Y$.
+	\item Prove that $s \in X \Leftrightarrow A(s) \in Y$.
 \end{enumerate}
+\columnbreak
+\subsubsection{List of problems}
 \begin{tabular}{l l}
 Packing                 & Independent Set \\
                         & Set Packing \\
@@ -206,6 +206,46 @@ Numerical               & Subset Sum \\
 Constraint Satisfaction & 3-Sat \\
 \end{tabular}
 
+
+\section{Graphs}
+$G(V, E)$
+
+\subsection{Breadth-first-search}
+Perhaps the simplest algorithm for determining $s-t$ connectivity is
+breadth-first search (BFS), in which we explore outward from $s$ in all
+possible directions, adding nodes one ''layer'' at a time. Thus we start with
+$s$ and include all nodes that are joined by an edge to $s$ -- this is the first
+layer of the search. We then include all additional nodes that are joined
+by an edge to any node in the first layer -- this is the second layer. We
+continue in this way until no new nodes are encountered. 
+Time complexity: $\mathcal{O}(\vert{V}\vert + \vert{E}\vert)$.
+
+\subsection{Depth-First-Search}
+Another natural method to find the nodes reachable from $s$ is the approach
+you might take if the graph $G$ were truly a maze of interconnected rooms
+and you were walking around in it. You'd start from $s$ and try the first
+edge leading out of it, to a node $v$. You'd then follow the first edge
+leading out of $v$, and continue in this way until you reached a ''dead
+end'' -- a node for which you had already explored all its neighbors. You'd
+then backtrack until you got to a node with an unexplored neighbor, and
+resume from there. We call this algorithm depth-first search (DFS), since
+it explores $G$ by going as deeply as possible and only retreating when
+necessary. Time complexity: $\mathcal{O}(\vert{V}\vert + \vert{E}\vert)$.
+
+\section{Minimum Spanning Tree}
+A subset of the edges that forms a tree that includes every vertex,
+where the total weight of all the edges in the tree is minimized.
+
+\subsection{Prim's algorithm}
+\begin{enumerate}
+	\item Initialize a tree with a single vertex, chosen arbitrarily from the graph.
+	\item Grow the tree by one edge: of the edges that connect the tree to
+		vertices not yet in the tree, find the minimum-weight edge, and
+		transfer it to the tree.
+	\item Repeat step 2 (until all vertices are in the tree).
+\end{enumerate}
+Time complexity when using binary heap priority queues and adjacency list:
+$\mathcal{O}(\vert{E}\vert \log \vert{V}\vert)$.
 
 
 \vfill
